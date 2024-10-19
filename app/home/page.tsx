@@ -1,19 +1,23 @@
 'use client'; // Mark this file as a Client Component
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import micImg from '@/public/mic.png';
 import videoImg from '@/public/facetime.png';
+import Image from 'next/image';
 
 const About = () => {
     const [isSpinning, setIsSpinning] = useState(false); // State to control spinner
+
+    const handleRecording = async () => {
+        console.log('clicked recording');
+    };
 
     return (
         <div className="bg-[#0d0c22] bg-cover bg-center h-screen flex flex-col justify-center items-center">
             <button onClick={() => setIsSpinning(!isSpinning)}>
                 {isSpinning ? 'Stop Spinner' : 'Start Spinner'}
             </button>
-            {/* Spinner */}
+
             <div
                 className="spinner"
                 style={{
@@ -22,16 +26,17 @@ const About = () => {
                 }}>
                 <div className="spinner1"></div>
             </div>
-            {/* Buttons: link to recording page */}
             <div className="flex gap-2 mt-9">
-                <button className="button">
-                    <Image src={micImg} alt="Microphone" />
+                <button className="button" onClick={handleRecording}>
+                    <Image src={micImg} alt="Microphone" className="w-5 h-6 mr-2" />
+                    audio
                     <div className="hoverEffect">
                         <div></div>
                     </div>
                 </button>
                 <button className="button">
-                    <Image src={videoImg} alt="Video" className="w-20 h-20" />
+                    <Image src={videoImg} alt="Video" className="w-12 h-12" />
+                    camera
                     <div className="hoverEffect">
                         <div></div>
                     </div>
