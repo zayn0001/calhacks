@@ -335,9 +335,6 @@ const AudioRecorder = () => {
                                 className="w-8 h-8 z-10"
                             />
                         )}
-                        {/* <div className="hoverEffect">
-                            <div></div>
-                        </div> */}
                     </button>
                 </div>
 
