@@ -1,6 +1,11 @@
 'use client';
 import { useRef, useState } from 'react';
+import Image from 'next/image';
+import replayImg from '@/public/replay.png';
 import AudioVisualizer from './AudioVisualizer';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck, faCirclePlay, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 const AudioRecorder = () => {
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -88,7 +93,12 @@ const AudioRecorder = () => {
                 </div>
                 {/* Start/Stop buttons */}
                 <button className="button mt-16 mb-20" onClick={toggleRecording}>
-                    {isRecording ? 'Stop Recording' : 'Start Recording'}
+                    <FontAwesomeIcon
+                        icon={faPlay}
+                        style={{ color: '#ffffff' }}
+                        className="w-6 h-6 mr-2"
+                    />
+                    {isRecording ? 'Stop' : 'Start'}
                     <div className="hoverEffect">
                         <div></div>
                     </div>
@@ -98,7 +108,13 @@ const AudioRecorder = () => {
                     className="button mt-16 mb-20"
                     onClick={playAudio}
                     disabled={!audioChunks.length}>
-                    Replay Audio
+                    <Image src={replayImg} alt="replay" className="w-6 h-6 mr-2" />
+                    <FontAwesomeIcon
+                        icon={faCircleCheck}
+                        style={{ color: '#ffffff' }}
+                        className="w-6 h-6 mr-2"
+                    />
+                    Replay
                     <div className="hoverEffect">
                         <div></div>
                     </div>
@@ -108,7 +124,12 @@ const AudioRecorder = () => {
                     className="button mt-16 mb-20"
                     onClick={downloadAudio}
                     disabled={!audioChunks.length}>
-                    Save Audio
+                    <FontAwesomeIcon
+                        icon={faCircleCheck}
+                        style={{ color: '#ffffff' }}
+                        className="w-6 h-6 mr-2"
+                    />
+                    Save
                     <div className="hoverEffect">
                         <div></div>
                     </div>
