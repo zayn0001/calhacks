@@ -13,12 +13,6 @@ const About = () => {
     console.log("clicked recording");
   };
 
-  const navItems = [
-    { name: "Home", link: "/", icon: <span>🏠</span> },
-    { name: "About", link: "/about", icon: <span>ℹ️</span> },
-    { name: "Video", link: "/video", icon: <span>✉️</span> },
-  ];
-
   return (
     <div className="bg-[#0d0c22] bg-cover bg-center h-screen flex flex-col justify-center items-center text-white">
       <div className="bubbles"></div>
