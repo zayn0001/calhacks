@@ -23,7 +23,6 @@ const Home = () => {
             className: 'text-purple-500 dark:text-purple-500',
         },
     ];
-
     return (
         <div className="relative h-screen flex flex-col items-center justify-center text-white bg-[#0d0c22] overflow-hidden">
             <div className="bubbles"></div>
