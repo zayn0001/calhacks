@@ -52,12 +52,48 @@ body {
   }
 }
 
+.eclipse-animation {
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.eclipse-animation.active {
+  opacity: 1;
+  animation: moveEclipses 2s infinite;
+}
+
+.eclipse {
+  width: 50px;
+  height: 50px;
+}
+
+@keyframes moveEclipses {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(15px);
+  }
+  50% {
+    transform: translateX(-15px);
+  }
+  75% {
+    transform: translateX(15px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
 /* Button styles */
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 15px 30px;
+  padding: 5px 20px;
   border: 0;
   position: relative;
   overflow: hidden;
@@ -113,6 +149,67 @@ body {
   width: 8rem;
   height: 8rem;
 }
+
+.bubbles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none; /* Allows clicks to go through the bubbles */
+}
+
+.bubbles::before,
+.bubbles::after {
+  content: '';
+  position: absolute;
+  background: hsla(259, 100%, 67%, 0.477);
+  border-radius: 50%;
+  opacity: 0.7;
+  filter: blur(50px); /* Creates the glowing effect */
+}
+
+.bubbles::before {
+  width: 100px; /* Size of the bubble */
+  height: 100px; /* Size of the bubble */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: bubble-animation 10s infinite; /* Adjust duration as needed */
+}
+
+.bubbles::after {
+  width: 150px; /* Size of the bubble */
+  height: 150px; /* Size of the bubble */
+  left: 20%;
+  top: 20%;
+  animation: bubble-animation 12s infinite; /* Different duration for variation */
+}
+
+@keyframes bubble-animation {
+  0% {
+    transform: translate(0, 0) rotate(0deg); /* Start position */
+    opacity: 0.7;
+  }
+  25% {
+    transform: translate(100px, -50px) rotate(90deg); /* Move right-up */
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-100px, -100px) rotate(180deg); /* Move left-up */
+    opacity: 0.7;
+  }
+  75% {
+    transform: translate(50px, 100px) rotate(270deg); /* Move right-down */
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(0, 0) rotate(470deg); /* Return to start */
+    opacity: 0.7;
+  }
+}
+
 
 @keyframes effect {
   0% {
