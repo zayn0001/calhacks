@@ -2,8 +2,7 @@ from PIL import Image
 import io
 import base64
 
-def process_frame(image_data, width, height):
-    try:
+async def process_frame(image_data, width, height):
         print("Processing frame:", width, "x", height)
 
         # Check if image_data is base64 encoded
@@ -37,7 +36,3 @@ def process_frame(image_data, width, height):
         print("Generated frame description:", frame_description)
 
         return {"frameDescription": frame_description, "encodedImage": encoded_image}
-
-    except Exception as error:
-        print("Error in process_frame:", error)
-        raise

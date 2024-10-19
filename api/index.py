@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 import io
 from imagetodatabase import generate_commentary  # Assuming you have the generate_commentary function
+from groqclient import get_similar_contents
 
 app = Flask(__name__)
 
@@ -21,6 +22,7 @@ def allowed_file(filename):
 # Flask route to handle image uploads
 @app.route('/api/upload', methods=['POST'])
 async def upload_file():
+    print(request)
     if 'file' not in request.files:
         return jsonify({'error': 'No file part in the request'}), 400
 
@@ -33,23 +35,39 @@ async def upload_file():
         filename = secure_filename(file.filename)
 
         # Read the image file into a PIL Image
-        try:
-            image = Image.open(file)
-            image_data = io.BytesIO()
-            image.save(image_data, format=image.format)
-            image_data = image_data.getvalue()
-            width, height = image.size
+        image = Image.open(file)
+        image_data = io.BytesIO()
+        image.save(image_data, format=image.format)
+        image_data = image_data.getvalue()
+        width, height = image.size
 
-            # Process the image and generate commentary
-            result = await generate_commentary(image_data, width, height)
+        # Process the image and generate commentary
+        result = await generate_commentary(image_data, width, height)
 
-            return jsonify({
-                'timestamp': result['timestamp'],
-                'commentary': result['text'],
-                'embedding': result['embedding']
-            }), 200
-
-        except Exception as e:
-            return jsonify({'error': f'Failed to process image: {str(e)}'}), 500
+        return jsonify({
+            'timestamp': result['timestamp'],
+            'commentary': result['text'],
+            'embedding': result['embedding']
+        }), 200
 
     return jsonify({'error': 'Allowed file types are png, jpg, jpeg, gif'}), 400
+
+
+
+@app.route('/api/getcontext', methods=['POST'])
+async def get_context():
+    data = request.get_json()
+
+    # Extract the 'question' argument from the JSON body
+    question = data.get('question')
+
+    # Check if 'question' is provided
+    if not question:
+        return jsonify({"error": "Question not provided"}), 400
+    
+
+    contents = get_similar_contents(question)
+    print(contents)
+    return contents
+    
+

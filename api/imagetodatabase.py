@@ -7,7 +7,6 @@ from groqclient import generate_commentary_with_groq
 logging.basicConfig(level=logging.INFO)
 
 async def generate_commentary(image_data, width, height):
-    try:
         logging.info(f"Generating commentary for frame: {width}x{height}")
         logging.info(f"Image data type: {type(image_data)}")
         logging.info(f"Image data length: {len(image_data) if image_data else 'N/A'}")
@@ -17,21 +16,22 @@ async def generate_commentary(image_data, width, height):
 
         # Process the frame using process_frame function
         processed_frame = await process_frame(image_data, width, height)
-        encoded_image = processed_frame['encoded_image']
+        print(processed_frame)
+        encoded_image = processed_frame['encodedImage']
         logging.info(f"Encoded image length: {len(encoded_image)}")
 
         try:
             # Call Groq API to generate commentary
-            commentary_result = await generate_commentary_with_groq(encoded_image)
-            commentary = commentary_result['commentary']
-            embedding = commentary_result['embedding']
+            description_result = generate_commentary_with_groq(encoded_image)
+            description = description_result['description']
+            embedding = description_result['embedding']
 
-            logging.info(f"Generated commentary: {commentary}")
+            logging.info(f"Generated commentary: {description}")
             logging.info(f"Generated embedding: {embedding}")
 
             return {
                 'timestamp': datetime.now().isoformat(),
-                'text': commentary,
+                'text': description,
                 'embedding': embedding,
             }
 
@@ -42,11 +42,3 @@ async def generate_commentary(image_data, width, height):
                 'text': "Error generating commentary with Groq API.",
                 'embedding': None,
             }
-
-    except Exception as error:
-        logging.error(f"Error in generate_commentary: {error}")
-        return {
-            'timestamp': datetime.now().isoformat(),
-            'text': "Error processing frame or generating commentary.",
-            'embedding': None,
-        }
