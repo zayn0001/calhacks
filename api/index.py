@@ -55,7 +55,7 @@ async def upload_file():
 
 
 
-@app.route('/api/getcontext', methods=['POST'])
+@app.route('/api/getanswerinaudio', methods=['POST'])
 async def get_context():
     data = request.get_json()
 
@@ -74,4 +74,25 @@ async def get_context():
 
     return send_file(audio_file, mimetype='audio/wav', as_attachment=True, download_name='response.wav')
     
+
+
+@app.route('/api/getanswerintext', methods=['POST'])
+async def get_context():
+    data = request.get_json()
+
+    # Extract the 'question' argument from the JSON body
+    question = data.get('question')
+
+    # Check if 'question' is provided
+    if not question:
+        return jsonify({"error": "Question not provided"}), 400
+
+    contents = get_similar_contents(question)
+    print(contents)
+
+    ans = get_response(question, contents["similars"])
+    return ans
+    
+    
+
 
