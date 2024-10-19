@@ -47,7 +47,7 @@ const RecordPage = () => {
         </BackgroundGradient>
 
         {/* Generated text below the video box */}
-        <h1 className="text-2xl font-bold mt-8 text-center">Generated Text</h1>
+        <h1 className="text-2xl font-bold mt-8 text-center">Recent Transcripts</h1>
         <div className="mx-4">
           {texts.map((text, index) => (
             <div
@@ -60,14 +60,6 @@ const RecordPage = () => {
         </div>
 
         {/* Button to add new text */}
-        <button
-          className="mt-6 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          onClick={() =>
-            addNewText(`This is a newly generated ${replaceIndex.toString()} text`)
-          }
-        >
-          Generate New Text
-        </button>
       </div>
     </div>
   );
