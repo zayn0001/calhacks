@@ -26,6 +26,9 @@ const Home = () => {
     return (
         <div className="relative h-screen flex flex-col justify-center items-center text-white bg-[#0d0c22] overflow-hidden">
             <div className="bubbles"></div>
+            <div>RECAP</div>
+
+            {/* Typewriter Effect */}
             <div className="flex justify-center items-center w-full">
                 <TypewriterEffectSmooth words={words} />
             </div>

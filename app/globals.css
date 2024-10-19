@@ -3,222 +3,221 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
+        rgb(var(--background-start-rgb));
 }
 
 /* Spinner styles */
 .spinner {
-  background-image: linear-gradient(rgb(186, 66, 255) 35%, rgb(0, 225, 255));
-  width: 100px;
-  height: 100px;
-  animation: spinning82341 1.7s linear infinite;
-  text-align: center;
-  border-radius: 50px;
-  filter: blur(1px);
-  box-shadow: 0px -5px 20px 0px rgb(186, 66, 255), 0px 5px 20px 0px rgb(0, 225, 255);
+    background-image: linear-gradient(rgb(186, 66, 255) 35%, rgb(0, 225, 255));
+    width: 100px;
+    height: 100px;
+    animation: spinning82341 1.7s linear infinite;
+    text-align: center;
+    border-radius: 50px;
+    filter: blur(1px);
+    box-shadow: 0px -5px 20px 0px rgb(186, 66, 255), 0px 5px 20px 0px rgb(0, 225, 255);
 }
 
 .spinner1 {
-  background-color: rgba(247, 247, 247, 0.9); /* Adjust the last value for desired transparency */
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-  filter: blur(10px);
+    background-color: rgba(
+        247,
+        247,
+        247,
+        0.6
+    ); /* Adjust the last value for desired transparency */
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    filter: blur(10px);
 }
 
 @keyframes spinning82341 {
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .eclipse-animation {
-  display: flex;
-  gap: 10px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .eclipse-animation.active {
-  opacity: 1;
-  animation: moveEclipses 2s infinite;
+    opacity: 1;
+    animation: moveEclipses 2s infinite;
 }
 
 .eclipse {
-  width: 50px;
-  height: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 @keyframes moveEclipses {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(15px);
-  }
-  50% {
-    transform: translateX(-15px);
-  }
-  75% {
-    transform: translateX(15px);
-  }
-  100% {
-    transform: translateX(0);
-  }
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(15px);
+    }
+    50% {
+        transform: translateX(-15px);
+    }
+    75% {
+        transform: translateX(15px);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
-
 
 /* Button styles */
 .button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 20px;
-  border: 0;
-  position: relative;
-  overflow: hidden;
-  border-radius: 10rem;
-  transition: all 0.2s;
-  font-weight: bold;
-  cursor: pointer;
-  color: rgb(255, 255, 255); /* Change text color for better visibility */
-  background: rgb(37, 37, 37); /* Default background color */
-  z-index: 0;
-  box-shadow: 0 0px 7px -5px rgba(0, 0, 0, 0.5);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 20px;
+    border: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10rem;
+    transition: all 0.2s;
+    font-weight: bold;
+    cursor: pointer;
+    color: rgb(255, 255, 255); /* Change text color for better visibility */
+    background: rgb(37, 37, 37); /* Default background color */
+    z-index: 0;
+    box-shadow: 0 0px 7px -5px rgba(0, 0, 0, 0.5);
 }
 
 .button:hover {
-  background: rgb(193, 228, 248);
-  color: rgb(33, 0, 85);
+    background: rgb(193, 228, 248);
+    color: rgb(33, 0, 85);
 }
 
 .button:active {
-  transform: scale(0.97);
+    transform: scale(0.97);
 }
 
 .hoverEffect {
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 .hoverEffect div {
-  background: rgb(222, 0, 75);
-  background: linear-gradient(
-    90deg,
-    rgba(222, 0, 75, 1) 0%,
-    rgba(191, 70, 255, 1) 49%,
-    rgba(0, 212, 255, 1) 100%
-  );
-  border-radius: 40rem;
-  width: 10rem;
-  height: 10rem;
-  transition: 0.4s;
-  filter: blur(20px);
-  animation: effect infinite 3s linear;
-  opacity: 0.5;
+    background: rgb(222, 0, 75);
+    background: linear-gradient(
+        90deg,
+        rgba(222, 0, 75, 1) 0%,
+        rgba(191, 70, 255, 1) 49%,
+        rgba(0, 212, 255, 1) 100%
+    );
+    border-radius: 40rem;
+    width: 10rem;
+    height: 10rem;
+    transition: 0.4s;
+    filter: blur(20px);
+    animation: effect infinite 3s linear;
+    opacity: 0.5;
 }
 
 .button:hover .hoverEffect div {
-  width: 8rem;
-  height: 8rem;
+    width: 8rem;
+    height: 8rem;
 }
 
 .bubbles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  pointer-events: none; /* Allows clicks to go through the bubbles */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none; /* Allows clicks to go through the bubbles */
 }
 
 .bubbles::before,
 .bubbles::after {
-  content: '';
-  position: absolute;
-  background: hsla(259, 100%, 67%, 0.477);
-  border-radius: 50%;
-  opacity: 0.7;
-  filter: blur(50px); /* Creates the glowing effect */
+    content: '';
+    position: absolute;
+    background: hsla(259, 100%, 67%, 0.477);
+    border-radius: 50%;
+    opacity: 0.7;
+    filter: blur(50px); /* Creates the glowing effect */
 }
 
 .bubbles::before {
-  width: 100px; /* Size of the bubble */
-  height: 100px; /* Size of the bubble */
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  animation: bubble-animation 10s infinite; /* Adjust duration as needed */
+    width: 100px; /* Size of the bubble */
+    height: 100px; /* Size of the bubble */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: bubble-animation 10s infinite; /* Adjust duration as needed */
 }
 
 .bubbles::after {
-  width: 150px; /* Size of the bubble */
-  height: 150px; /* Size of the bubble */
-  left: 20%;
-  top: 20%;
-  animation: bubble-animation 12s infinite; /* Different duration for variation */
+    width: 150px; /* Size of the bubble */
+    height: 150px; /* Size of the bubble */
+    left: 20%;
+    top: 20%;
+    animation: bubble-animation 12s infinite; /* Different duration for variation */
 }
 
 @keyframes bubble-animation {
-  0% {
-    transform: translate(0, 0) rotate(0deg); /* Start position */
-    opacity: 0.7;
-  }
-  25% {
-    transform: translate(100px, -50px) rotate(90deg); /* Move right-up */
-    opacity: 0.7;
-  }
-  50% {
-    transform: translate(-100px, -100px) rotate(180deg); /* Move left-up */
-    opacity: 0.7;
-  }
-  75% {
-    transform: translate(50px, 100px) rotate(270deg); /* Move right-down */
-    opacity: 0.7;
-  }
-  100% {
-    transform: translate(0, 0) rotate(470deg); /* Return to start */
-    opacity: 0.7;
-  }
+    0% {
+        transform: translate(0, 0) rotate(0deg); /* Start position */
+        opacity: 0.7;
+    }
+    25% {
+        transform: translate(100px, -50px) rotate(90deg); /* Move right-up */
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(-100px, -100px) rotate(180deg); /* Move left-up */
+        opacity: 0.7;
+    }
+    75% {
+        transform: translate(50px, 100px) rotate(270deg); /* Move right-down */
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(0, 0) rotate(470deg); /* Return to start */
+        opacity: 0.7;
+    }
 }
 
-
 @keyframes effect {
-  0% {
-    transform: rotate(0deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
 
-  100% {
-    transform: rotate(360deg);
-  }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* For word sliding */
