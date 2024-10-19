@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
+import VideoPlayer from "@/components/ui/VideoPlayer"
 
 const RecordPage = () => {
   // State to keep track of text boxes
@@ -25,6 +26,7 @@ const RecordPage = () => {
         updatedTexts[replaceIndex] = newText;
         // Update the replaceIndex to cycle through 0, 1, 2
         setReplaceIndex((prevIndex) => (prevIndex + 1) % 3);
+        
         return updatedTexts;
       }
     });
@@ -44,11 +46,7 @@ const RecordPage = () => {
             className="bg-white dark:bg-slate-900 text-black dark:text-white p-3 shadow-2xl rounded-xl border border-neutral-200 dark:border-slate-700 relative"
           >
             {/* Placeholder for the video feed */}
-            <div className="w-full h-64 bg-gradient-to-r from-gray-300 to-gray-400 dark:bg-gradient-to-r dark:from-slate-700 dark:to-slate-600 rounded-lg flex items-center justify-center">
-              <p className="text-lg text-center font-semibold tracking-wide text-gray-600 dark:text-gray-300 m-3">
-                Video feed will appear here
-              </p>
-            </div>
+            <VideoPlayer setNewDescription={addNewText}/>
           </div>
         </BackgroundGradient>
 
@@ -60,10 +58,12 @@ const RecordPage = () => {
               key={index}
               className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-4 mt-2 w-full max-w-3xl text-center shadow-lg"
             >
-              <TextGenerateEffect
-                words={text}
-                className="text-md leading-relaxed text-white"
-              />
+              {//<TextGenerateEffect
+                //words={text}
+                //className="text-md leading-relaxed text-white"
+              ///>
+              }
+              {text}
             </div>
           ))}
         </div>
@@ -71,7 +71,7 @@ const RecordPage = () => {
         {/* Button to add new text */}
         <button
           className="mt-6 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          onClick={() => addNewText("This is a newly generated text")}
+          onClick={() => addNewText(`This is a newly generated ${replaceIndex.toString()} text`)}
         >
           Generate New Text
         </button>
