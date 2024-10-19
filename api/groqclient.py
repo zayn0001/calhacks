@@ -128,15 +128,6 @@ def get_similar_contents(question):
     print("Generated embedding:", "Embedding generated successfully")
     print(json.dumps(embedding.tolist()).replace("[", "(").replace("]",")"))
     if cursor:
-        # cursor.execute('''
-        #                 SELECT description,
-        #                     embedding <*> CAST(%s AS VECTOR(384)) AS score
-        #                 FROM descriptions_table
-        #                 ORDER BY score DESC
-        #                 LIMIT 2;   
-        #                ''',
-        #                 (json.dumps(embedding.tolist()).replace("[", "(").replace("]",")")))
-        
         cursor.execute('''
                     SET @query_vec = (%s):>VECTOR(384):>BLOB;
 ''', (json.dumps(embedding.tolist())))
@@ -144,7 +135,7 @@ def get_similar_contents(question):
 
         cursor.execute('''
                          SELECT description,
-                             embedding <*> @query_vec AS score
+                         embedding <*> @query_vec AS score
                          FROM descriptions_table
                          ORDER BY score DESC
                          LIMIT 1;   
