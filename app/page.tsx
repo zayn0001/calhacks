@@ -1,27 +1,36 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
 import React from 'react';
+import { TypewriterEffectSmooth } from '@/components/ui/typewriter-effect';
 
 const Home = () => {
-    return (
-        <div className="relative h-screen flex flex-col items-center text-white bg-[#0d0c22] overflow-hidden">
-            {/* Bubble Background */}
-            <div className="bubbles"></div>
-            {/* Sliding Words */}
-            <div className="wrapper mt-8">
-                <span className="letter letter1">R</span>
-                <span className="letter letter2">E</span>
-                <span className="letter letter3">C</span>
-                <span className="letter letter4">A</span>
-                <span className="letter letter5">P</span>
-            </div>
-            {/* Spacer to push button to the bottom */}
-            <div className="flex-grow"></div>
+    const words = [
+        {
+            text: 'The',
+        },
+        {
+            text: 'future',
+        },
+        {
+            text: 'of',
+        },
+        {
+            text: 'Conversational',
+        },
+        {
+            text: 'Memory.',
+            className: 'text-purple-500 dark:text-purple-500',
+        },
+    ];
 
+    return (
+        <div className="relative h-screen flex flex-col justify-center items-center text-white bg-[#0d0c22] overflow-hidden">
+            <div className="bubbles"></div>
+            <div className="flex justify-center items-center w-full">
+                <TypewriterEffectSmooth words={words} />
+            </div>
             <Link href="/home" className="poppins-regular">
-                <button className="button mb-20">
-                    {' '}
+                <button className="button mt-16 mb-20">
                     GET STARTED
                     <div className="hoverEffect">
                         <div></div>
