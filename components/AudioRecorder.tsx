@@ -5,7 +5,14 @@ import replayImg from '@/public/replay.png';
 import AudioVisualizer from './AudioVisualizer';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faCirclePlay, faPlay } from '@fortawesome/free-solid-svg-icons';
+import {
+    faArrowUpFromBracket,
+    faCircleCheck,
+    faCirclePlay,
+    faPause,
+    faPlay,
+    faUpload,
+} from '@fortawesome/free-solid-svg-icons';
 
 const AudioRecorder = () => {
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -77,63 +84,78 @@ const AudioRecorder = () => {
 
     return (
         <div>
-            <audio ref={audioRef} controls />
-            {audioStream && <AudioVisualizer audioStream={audioStream} />}
+            {/* <audio ref={audioRef} controls /> */}
 
             <div>
                 {/* Spinner */}
                 <div
-                    className="spinner mt-5 flex flex-col justify-center"
+                    className="spinner-audio mt-5 flex flex-col justify-center"
                     style={{
                         animation: isSpinning
                             ? 'spinning82341 1.7s linear infinite'
                             : 'none',
                     }}>
-                    <div className="spinner1"></div>
+                    <div className="spinner1-audio"></div>
                 </div>
-                {/* Start/Stop buttons */}
-                <button className="button mt-16 mb-20" onClick={toggleRecording}>
-                    <FontAwesomeIcon
-                        icon={faPlay}
-                        style={{ color: '#ffffff' }}
-                        className="w-6 h-6 mr-2"
-                    />
-                    {isRecording ? 'Stop' : 'Start'}
-                    <div className="hoverEffect">
-                        <div></div>
-                    </div>
-                </button>
-                {/* Replay button */}
-                <button
-                    className="button mt-16 mb-20"
-                    onClick={playAudio}
-                    disabled={!audioChunks.length}>
-                    <Image src={replayImg} alt="replay" className="w-6 h-6 mr-2" />
-                    <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        style={{ color: '#ffffff' }}
-                        className="w-6 h-6 mr-2"
-                    />
-                    Replay
-                    <div className="hoverEffect">
-                        <div></div>
-                    </div>
-                </button>
-                {/* Download Button */}
-                <button
-                    className="button mt-16 mb-20"
-                    onClick={downloadAudio}
-                    disabled={!audioChunks.length}>
-                    <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        style={{ color: '#ffffff' }}
-                        className="w-6 h-6 mr-2"
-                    />
-                    Save
-                    <div className="hoverEffect">
-                        <div></div>
-                    </div>
-                </button>
+                <div style={{ minHeight: '200px' }} className="mt-10">
+                    {audioStream && <AudioVisualizer audioStream={audioStream} />}
+                </div>
+
+                {/* Middle - Replay and Record Button */}
+                <div className="flex justify-center space-x-4 mt-4 mb-10">
+                    {/* Replay button */}
+                    <button
+                        className="button rounded-full"
+                        onClick={playAudio}
+                        disabled={!audioChunks.length}>
+                        <Image
+                            src={replayImg}
+                            alt="replay"
+                            className="w-10 h-10 rounded-full"
+                        />
+                        <div className="hoverEffect">
+                            <div></div>
+                        </div>
+                    </button>
+
+                    {/* Start/Stop button */}
+                    <button className="button" onClick={toggleRecording}>
+                        {isRecording ? (
+                            <FontAwesomeIcon
+                                icon={faPause}
+                                style={{ color: '#ffffff' }}
+                                className="w-8 h-8"
+                            />
+                        ) : (
+                            <FontAwesomeIcon
+                                icon={faPlay}
+                                style={{ color: '#ffffff' }}
+                                className="w-8 h-8"
+                            />
+                        )}
+                        <div className="hoverEffect">
+                            <div></div>
+                        </div>
+                    </button>
+                </div>
+
+                {/* Submit Button */}
+                <div className="flex flex-col items-center justify-center">
+                    <button
+                        className="button mb-20 w-40 flex flex-row justify-center"
+                        onClick={downloadAudio}
+                        disabled={!audioChunks.length}>
+                        <FontAwesomeIcon
+                            icon={faArrowUpFromBracket}
+                            style={{ color: '#ffffff' }}
+                            className="w-6 h-6"
+                        />
+                        <span className="ms-2 py-3">Submit</span>
+                        <div className="hoverEffect">
+                            <div></div>
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
     );

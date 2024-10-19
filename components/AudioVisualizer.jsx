@@ -1,3 +1,5 @@
+// import { useEffect, useRef } from 'react';
+
 import { useEffect, useRef } from 'react';
 
 const AudioVisualizer = ({ audioStream }) => {
@@ -5,92 +7,92 @@ const AudioVisualizer = ({ audioStream }) => {
     const animationFrameId = useRef();
 
     useEffect(() => {
-        // Visualizing audio with Web Audio API
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const analyser = audioCtx.createAnalyser();
-        const source = audioCtx.createMediaStreamSource(audioStream);
-        source.connect(analyser);
-        analyser.fftSize = 2048;
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-
         const canvas = canvasRef.current;
         const canvasCtx = canvas.getContext('2d');
 
-        // animating the visualization
-        // bar style
-        const draw = () => {
-            animationFrameId.current = requestAnimationFrame(draw);
-            analyser.getByteFrequencyData(dataArray);
-            canvasCtx.fillStyle = '#0d0c22';
-            canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+        if (audioStream) {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const analyser = audioCtx.createAnalyser();
+            const source = audioCtx.createMediaStreamSource(audioStream);
+            source.connect(analyser);
+            analyser.fftSize = 2048;
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
 
-            const barWidth = (canvas.width / bufferLength) * 2.5;
-            let x = 0;
+            const draw = () => {
+                animationFrameId.current = requestAnimationFrame(draw);
+                analyser.getByteFrequencyData(dataArray);
 
-            for (let i = 0; i < bufferLength; i++) {
-                const barHeight = dataArray[i];
-                canvasCtx.fillStyle = `rgb(${barHeight + 100}, 30, ${barHeight + 100})`;
-                canvasCtx.fillRect(
-                    x,
-                    canvas.height - barHeight / 2,
-                    barWidth,
-                    barHeight / 2
-                );
-                x += barWidth + 1;
-            }
-        };
-        // gradient
-        // const draw = () => {
-        //     animationFrameId.current = requestAnimationFrame(draw);
-        //     analyser.getByteFrequencyData(dataArray);
+                canvasCtx.clearRect(0, 0, canvas.width, canvas.height); // Clears the canvas
+                canvasCtx.fillStyle = '#0d0c22';
+                canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
-        //     canvasCtx.fillStyle = '#0d0c22';
-        //     canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+                const barWidth = (canvas.width / bufferLength) * 2.5;
+                let x = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = dataArray[i] / 2; // Half height for symmetry around center
+                    const yCenter = canvas.height / 2; // Center y position
 
-        //     const barWidth = (canvas.width / bufferLength) * 2.5;
-        //     let x = 0;
+                    // Draw upper half
+                    canvasCtx.fillStyle = `rgb(${barHeight * 2 + 100}, 30, ${
+                        barHeight * 2 + 100
+                    })`;
+                    canvasCtx.beginPath();
+                    canvasCtx.moveTo(x, yCenter);
+                    canvasCtx.arcTo(
+                        x + barWidth,
+                        yCenter,
+                        x + barWidth,
+                        yCenter - barHeight,
+                        barWidth / 2
+                    );
+                    canvasCtx.arcTo(
+                        x + barWidth,
+                        yCenter - barHeight,
+                        x,
+                        yCenter - barHeight,
+                        barWidth / 2
+                    );
+                    canvasCtx.arcTo(x, yCenter - barHeight, x, yCenter, barWidth / 2);
+                    canvasCtx.arcTo(x, yCenter, x + barWidth, yCenter, barWidth / 2);
+                    canvasCtx.closePath();
+                    canvasCtx.fill();
 
-        //     for (let i = 0; i < bufferLength; i++) {
-        //         const barHeight = dataArray[i];
-        //         const gradient = canvasCtx.createLinearGradient(
-        //             x,
-        //             canvas.height - barHeight,
-        //             x,
-        //             canvas.height
-        //         );
-        //         gradient.addColorStop(0, 'rgb(137, 207, 240)');
-        //         gradient.addColorStop(
-        //             1,
-        //             `rgb(${barHeight + 100}, 30, ${barHeight + 100})`
-        //         );
+                    // Draw lower half
+                    canvasCtx.beginPath();
+                    canvasCtx.moveTo(x, yCenter);
+                    canvasCtx.arcTo(
+                        x + barWidth,
+                        yCenter,
+                        x + barWidth,
+                        yCenter + barHeight,
+                        barWidth / 2
+                    );
+                    canvasCtx.arcTo(
+                        x + barWidth,
+                        yCenter + barHeight,
+                        x,
+                        yCenter + barHeight,
+                        barWidth / 2
+                    );
+                    canvasCtx.arcTo(x, yCenter + barHeight, x, yCenter, barWidth / 2);
+                    canvasCtx.arcTo(x, yCenter, x + barWidth, yCenter, barWidth / 2);
+                    canvasCtx.closePath();
+                    canvasCtx.fill();
 
-        //         canvasCtx.fillStyle = gradient;
-        //         canvasCtx.fillRect(
-        //             x,
-        //             canvas.height - barHeight / 2,
-        //             barWidth,
-        //             barHeight / 2
-        //         );
+                    x += barWidth + 1;
+                }
+            };
+            draw();
 
-        //         x += barWidth + 1;
-        //     }
-        // };
-        draw();
-
-        return () => {
-            cancelAnimationFrame(animationFrameId.current);
-            audioCtx.close();
-        };
+            return () => {
+                cancelAnimationFrame(animationFrameId.current);
+                audioCtx.close();
+            };
+        }
     }, [audioStream]);
 
-    return (
-        <canvas
-            ref={canvasRef}
-            width="640"
-            height="100"
-            style={{ width: '100%' }}></canvas>
-    );
+    return <canvas ref={canvasRef} className="w-full h-full md:w-1/2 lg:w-1/3"></canvas>;
 };
 
 export default AudioVisualizer;
