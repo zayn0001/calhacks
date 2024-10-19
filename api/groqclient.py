@@ -145,4 +145,36 @@ def get_similar_contents(question):
     return {
         "similars":cursor.fetchall()
     }
+
+
     
+def get_response(question, context):
+    headers = {'Authorization': f'Bearer {GROQ_API_KEY}'}
+    print(context)
+    context = context[0][0]
+    data = {
+        'messages': [
+        {
+          'role': "user",
+          'content': f'''This is the question asked: ${question}
+                        This is the information available: ${context}
+                        Answer the question based on the information available. do not start the answer with 'based on the information available' or anything like that. speak in past tense too
+                        ''',
+        },
+      ],
+      'model': "mixtral-8x7b-32768",
+    }
+
+    response = requests.post('https://api.groq.com/openai/v1/chat/completions', headers=headers, json=data)
+    print(response)
+    response.raise_for_status()
+    chat_completion = response.json()
+    print(chat_completion)
+    description = chat_completion['choices'][0]['message']['content']
+    print(description)
+
+    
+
+    return {"description":description}
+    
+

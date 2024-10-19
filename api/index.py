@@ -1,9 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from werkzeug.utils import secure_filename
 from PIL import Image
 import io
 from imagetodatabase import generate_commentary  # Assuming you have the generate_commentary function
-from groqclient import get_similar_contents
+from groqclient import get_similar_contents, get_response
+from vapi_client import speak
 
 app = Flask(__name__)
 
@@ -64,10 +65,13 @@ async def get_context():
     # Check if 'question' is provided
     if not question:
         return jsonify({"error": "Question not provided"}), 400
-    
 
     contents = get_similar_contents(question)
     print(contents)
-    return contents
+
+    ans = get_response(question, contents["similars"])
+    audio_file = speak(ans["description"])
+
+    return send_file(audio_file, mimetype='audio/wav', as_attachment=True, download_name='response.wav')
     
 
