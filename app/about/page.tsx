@@ -5,6 +5,7 @@ import micImg from "@/public/mic.png";
 import videoImg from "@/public/facetime.png";
 import Image from "next/image";
 import { FlipWords } from "@/components/ui/flip-words";
+import { FloatingNav } from "@/components/ui/floating-navbar";
 const About = () => {
   const [isSpinning, setIsSpinning] = useState(false); // State to control spinner
 
@@ -12,9 +13,16 @@ const About = () => {
     console.log("clicked recording");
   };
 
+  const navItems = [
+    { name: "Home", link: "/", icon: <span>🏠</span> },
+    { name: "About", link: "/about", icon: <span>ℹ️</span> },
+    { name: "Video", link: "/video", icon: <span>✉️</span> },
+  ];
+
   return (
     <div className="bg-[#0d0c22] bg-cover bg-center h-screen flex flex-col justify-center items-center text-white">
       <div className="bubbles"></div>
+      <FloatingNav navItems={navItems} className="z-[1000]" />
 
       {/* Welcome text */}
       <div className="text-center mb-10">
