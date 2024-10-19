@@ -270,6 +270,18 @@ body {
     }
 }
 
+/* for button on the audio pages */
+.enabledButton {
+    background-color: purple;
+}
+/* 
+.enabledButton:hover {
+} */
+
+.disabledButton {
+    background-color: #333336;
+}
+
 /* For word sliding */
 .wrapper {
     min-height: 3rem;
@@ -291,9 +303,9 @@ body {
     width: 1ch;
     position: absolute;
     top: 50%;
-    transform: translate(0, -50%);
+    transform: translate(0px, -50%);
     left: 100%;
-    animation: scroll 3s linear infinite;
+    animation: scroll 3.3s linear infinite; /* Adjusted duration for smoother animation with more letters */
 }
 
 @keyframes scroll {
@@ -302,18 +314,100 @@ body {
     }
 }
 
+/* Adjusted animation delays for each letter based on 32 letters */
 .letter1 {
-    animation-delay: calc(1.5s / 5 * 0);
+    animation-delay: calc(3.3s / 32 * (32 - 1) * -1);
 }
 .letter2 {
-    animation-delay: calc(1.5s / 5 * 1);
+    animation-delay: calc(3.3s / 32 * (32 - 2) * -1);
 }
 .letter3 {
-    animation-delay: calc(1.5s / 5 * 2);
+    animation-delay: calc(3.3s / 32 * (32 - 3) * -1);
 }
 .letter4 {
-    animation-delay: calc(1.5s / 5 * 3);
+    animation-delay: calc(3.3s / 32 * (32 - 4) * -1);
 }
 .letter5 {
-    animation-delay: calc(1.5s / 5 * 4);
+    animation-delay: calc(3.3s / 32 * (32 - 5) * -1);
+}
+.letter6 {
+    animation-delay: calc(3.3s / 32 * (32 - 6) * -1);
+}
+.letter7 {
+    animation-delay: calc(3.3s / 32 * (32 - 7) * -1);
+}
+.letter8 {
+    animation-delay: calc(3.3s / 32 * (32 - 8) * -1);
+}
+.letter9 {
+    animation-delay: calc(3.3s / 32 * (32 - 9) * -1);
+}
+.letter10 {
+    animation-delay: calc(3.3s / 32 * (32 - 10) * -1);
+}
+.letter11 {
+    animation-delay: calc(3.3s / 32 * (32 - 11) * -1);
+}
+.letter12 {
+    animation-delay: calc(3.3s / 32 * (32 - 12) * -1);
+}
+.letter13 {
+    animation-delay: calc(3.3s / 32 * (32 - 13) * -1);
+}
+.letter14 {
+    animation-delay: calc(3.3s / 32 * (32 - 14) * -1);
+}
+.letter15 {
+    animation-delay: calc(3.3s / 32 * (32 - 15) * -1);
+}
+.letter16 {
+    animation-delay: calc(3.3s / 32 * (32 - 16) * -1);
+}
+.letter17 {
+    animation-delay: calc(3.3s / 32 * (32 - 17) * -1);
+}
+.letter18 {
+    animation-delay: calc(3.3s / 32 * (32 - 18) * -1);
+}
+.letter19 {
+    animation-delay: calc(3.3s / 32 * (32 - 19) * -1);
+}
+.letter20 {
+    animation-delay: calc(3.3s / 32 * (32 - 20) * -1);
+}
+.letter21 {
+    animation-delay: calc(3.3s / 32 * (32 - 21) * -1);
+}
+.letter22 {
+    animation-delay: calc(3.3s / 32 * (32 - 22) * -1);
+}
+.letter23 {
+    animation-delay: calc(3.3s / 32 * (32 - 23) * -1);
+}
+.letter24 {
+    animation-delay: calc(3.3s / 32 * (32 - 24) * -1);
+}
+.letter25 {
+    animation-delay: calc(3.3s / 32 * (32 - 25) * -1);
+}
+.letter26 {
+    animation-delay: calc(3.3s / 32 * (32 - 26) * -1);
+}
+.letter27 {
+    animation-delay: calc(3.3s / 32 * (32 - 27) * -1);
+}
+.letter28 {
+    animation-delay: calc(3.3s / 32 * (32 - 28) * -1);
+}
+.letter29 {
+    animation-delay: calc(3.3s / 32 * (32 - 29) * -1);
+}
+.letter30 {
+    animation-delay: calc(3.3s / 32 * (32 - 30) * -1);
+}
+.letter31 {
+    animation-delay: calc(3.3s / 32 * (32 - 31) * -1);
+}
+.letter32 {
+    animation-delay: calc(3.3s / 32 * (32 - 32) * -1);
 }
