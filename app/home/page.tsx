@@ -6,8 +6,11 @@ import micImg from '@/public/mic.png';
 import videoImg from '@/public/facetime.png';
 import Image from 'next/image';
 import { FlipWords } from '@/components/ui/flip-words';
+import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 
 const Home = () => {
+    const words = `Hi, Mirlan!`;
+
     const [isSpinning, setIsSpinning] = useState(false); // State to control spinner
 
     return (
@@ -16,28 +19,23 @@ const Home = () => {
 
             {/* Welcome text */}
             <div className="text-center mb-10">
-                <h1 className="text-2xl poppins-regular font-extrabold text-gray-200 tracking-wide">
-                    Hello, Mirlan!
-                </h1>
+                <TextGenerateEffect
+                    duration={2}
+                    filter={false}
+                    words={words}
+                    className="mb-5"
+                />
                 <p className="text-xl text-gray-400 mt-2 leading-snug">
-                    I can help you{' '}
-                    <FlipWords words={['store', 'recall']} duration={3000} />
-                    your memories for today.
+                    I can help you {''}
+                    <FlipWords words={['store', 'recap', 'retrieve']} duration={2500} />
+                    your memories
                 </p>
             </div>
 
-            {/* Spinner toggle button */}
-            <button
-                onClick={() => setIsSpinning(!isSpinning)}
-                className="px-4 py-2 rounded">
-                {isSpinning ? 'Stop Spinner' : 'Start Spinner'}
-            </button>
-
-            {/* Spinner */}
             <div
-                className="spinner mt-5"
+                className="spinner my-5"
                 style={{
-                    animation: isSpinning ? 'spinning82341 1.7s linear infinite' : 'none',
+                    animation: 'spinning82341 1.7s linear infinite',
                 }}>
                 <div className="spinner1"></div>
             </div>
@@ -46,8 +44,8 @@ const Home = () => {
             <div className="flex gap-6 mt-9">
                 <Link href="/audio" className="poppins-regular">
                     <button className="button">
-                        <Image src={micImg} alt="Microphone" className="w-5 h-6 mr-2" />
-                        AUDIO
+                        <Image src={micImg} alt="Microphone" className="w-5 h-6 mx-4" />
+                        <span className="py-3 mr-4">AUDIO</span>
                         <div className="hoverEffect">
                             <div></div>
                         </div>
@@ -56,8 +54,13 @@ const Home = () => {
 
                 <Link href="/video" className="poppins-regular">
                     <button className="button">
-                        <Image src={videoImg} alt="Video" className="w-12 h-12" />
-                        CAMERA
+                        <Image
+                            src={videoImg}
+                            alt="Video"
+                            className="w-12 h-12 mr-2 object-cover"
+                            style={{ objectPosition: 'center' }}
+                        />{' '}
+                        <span className="py-3 mr-5">VIDEO</span>
                         <div className="hoverEffect">
                             <div></div>
                         </div>
