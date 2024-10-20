@@ -22,7 +22,7 @@ const Home = () => {
         <p className="text-xl text-gray-400 mt-2 leading-snug">
           I can help you{" "}
           <FlipWords words={["store", "recall"]} duration={3000} />
-          your memories for today.
+          your memories.
         </p>
       </div>
 
