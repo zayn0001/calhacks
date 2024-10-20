@@ -11,13 +11,13 @@ client = AsyncGroq()
 
 @app.post("/chat/completions")
 async def chat_completion_stream(request: Request):
+    print(request)
     data = await request.json()
-    content = data['messages'][2]['content']
+    print(data)
+    content = data['messages'][1]['content']
     similars = get_similar_contents(content)
     print(similars)
     context = similars["similars"][0][0]
-
-
 
     try:
         response = await client.chat.completions.create(

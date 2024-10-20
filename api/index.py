@@ -3,6 +3,7 @@ import json
 import os
 import tempfile
 from flask import Flask, request, jsonify, send_file
+import requests
 from werkzeug.utils import secure_filename
 from PIL import Image
 import io
@@ -152,3 +153,76 @@ def upload_audio():
 
     else:
         return jsonify({'error': 'No file uploaded'}), 400
+    
+
+
+@app.route('/api/create_voice', methods=['POST'])
+def create_voice():
+    # Check if 'clip' is in the request files
+    if 'file' not in request.files:
+        return jsonify({"error": "No audio file uploaded"}), 400
+    
+    # Get the file from the request
+    file = request.files['file']
+    
+    # Optional: Check if a name was provided in the JSON data
+    name = request.form.get('name', 'default_name')
+
+    try:
+        # Clone Voice from Clip (POST /voices/clone/clip)
+        response = requests.post(
+            "https://api.cartesia.ai/voices/clone/clip",
+            headers={
+                "X-API-Key": os.getenv("CARTESIA_API_KEY"),
+                "Cartesia-Version": "2024-06-10",
+            },
+            data={
+                'enhance': json.dumps(True),
+            },
+            files={
+                'clip': (file.filename, file.stream, 'audio/wav')  # Use the file from the request
+            },
+        )
+
+        # Check for success and extract embedding
+        if response.status_code == 200:
+            embeddings = response.json().get('embedding')
+
+    except Exception as e:
+        print("Error: ", e)
+
+    # Create Voice (POST /voices/)
+    responseCreate = requests.post(
+        "https://api.cartesia.ai/voices",
+        headers={
+            "X-API-Key": os.getenv("CARTESIA_API_KEY"),
+            "Cartesia-Version": "2024-06-10",
+            "Content-Type": "application/json"
+        },
+        json={
+            "name": name,
+            "description": name,
+            "embedding": embeddings,
+            "language": "en"
+        },
+    )
+
+    id = responseCreate.json()['id']
+    print(id)
+    print('HELLLLL')
+    url = "https://api.vapi.ai/assistant/2ff538ce-29cb-4f73-af80-495559c5865c"
+
+    payload = {"voice": {
+            "provider": "cartesia",
+            "voiceId": id
+        }}
+    headers = {
+        "Authorization": 'Bearer ' + os.getenv("VAPI_KEY"),
+        "Content-Type": "application/json"
+    }
+    response = requests.request("PATCH", url, json=payload, headers=headers)
+    print(response)
+    print(response.json())
+    print(response.text)
+
+    return 'Voice ID successfully changed !'

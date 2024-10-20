@@ -91,6 +91,10 @@ def generate_commentary_with_groq(encoded_image):
     parsed_content = json.loads(chat_completion['choices'][0]['message']['content'])
     print(parsed_content)
     description = parsed_content.get('description', 'No commentary generated.')
+    timestamp = datetime.now()
+    formatted_datetime = timestamp.strftime("%A, %B %d, %Y %I:%M:%S %p")
+
+    description  = formatted_datetime + ": " + description
 
     # Generate embedding
     embedding = generate_embedding(description)
@@ -98,7 +102,7 @@ def generate_commentary_with_groq(encoded_image):
     print("Generated embedding:", "Embedding generated successfully")
 
     # Insert data into SingleStore
-    timestamp = datetime.now()
+    
     print(timestamp, description)
 
     if cursor:
