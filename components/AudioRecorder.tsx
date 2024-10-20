@@ -4,6 +4,7 @@ import Image from 'next/image';
 import replayImg from '@/public/replay.png';
 import AudioVisualizer from './AudioVisualizer';
 import WordSlider from './WordSlider';
+import micImg from '@/public/mic.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -25,7 +26,7 @@ const AudioRecorder = () => {
         setAudioStream(stream);
         mediaRecorderRef.current = new MediaRecorder(stream);
         mediaRecorderRef.current.addEventListener('dataavailable', (event: BlobEvent) => {
-            setAudioChunks((prev) => [...prev, event.data]);
+            setAudioChunks((prev) => [event.data]);
         });
         mediaRecorderRef.current.start();
     };
@@ -99,14 +100,17 @@ const AudioRecorder = () => {
 
             <div>
                 {/* Spinner */}
-                <div
-                    className="spinner-audio mt-5 flex flex-col justify-center ms-1"
-                    style={{
-                        animation: isSpinning
-                            ? 'spinning82341 1.7s linear infinite'
-                            : 'none',
-                    }}>
-                    <div className="spinner1-audio"></div>
+                <div className="spinner-container relative mt-16 md:mt-32 flex justify-center items-center">
+                    <Image src={micImg} alt="Microphone" className="mic-image absolute" />
+                    <div
+                        className="spinner-audio"
+                        style={{
+                            animation: isSpinning
+                                ? 'spinning82341 1.7s linear infinite'
+                                : 'none',
+                        }}>
+                        <div className="spinner1-audio"></div>
+                    </div>
                 </div>
 
                 {/* audiostream */}
@@ -118,43 +122,34 @@ const AudioRecorder = () => {
                         justifyContent: 'center',
                         width: '100%',
                     }}
-                    className="mt-10">
+                    className="content-container mt-10 lg:mt-6">
                     {audioStream ? (
                         <AudioVisualizer audioStream={audioStream} />
                     ) : (
                         <WordSlider />
-                        // <hr style={{ width: '100%', borderTop: '1px solid #ccc' }} />
                     )}
                 </div>
 
                 {/* Middle - Replay and Record Button */}
-                <div className="flex justify-center space-x-4 mt-4 mb-10">
+                <div className="flex justify-center space-x-4 mt-4 md:mt-0 mb-10">
                     <button
                         className="button rounded-full"
                         onClick={playAudio}
-                        disabled={!audioChunks.length}
-                        // style={{
-                        //     backgroundColor: audioChunks.length ? '' : '#333336',
-                        //     zIndex: audioChunks.length ? '10' : '',
-                        // }}>
-                        style={{
-                            backgroundColor: audioChunks.length ? 'purple' : '#333336',
-                        }}>
-                        {/* <div className="hoverEffect">
+                        disabled={!audioChunks.length}>
+                        <div className={`${audioChunks.length ? 'hoverEffect' : ''}`}>
                             <div></div>
-                        </div> */}
+                        </div>
                         <Image
                             src={replayImg}
                             alt="replay"
                             className="w-10 h-10 rounded-full z-10"
                         />
                     </button>
-
+                    {/* record and pause audio recording*/}
                     <button
                         className="button"
                         onClick={toggleRecording}
-                        // style={{ backgroundColor: isRecording ? '#f44336' : '' }}>
-                        style={{ backgroundColor: isRecording ? '#f44336' : 'purple' }}>
+                        style={{ backgroundColor: isRecording ? '#f44336' : '' }}>
                         {isRecording ? (
                             <FontAwesomeIcon
                                 icon={faPause}
@@ -168,6 +163,9 @@ const AudioRecorder = () => {
                                 className="w-8 h-8 z-10"
                             />
                         )}
+                        <div className="hoverEffect">
+                            <div></div>
+                        </div>
                     </button>
                 </div>
 
@@ -175,18 +173,19 @@ const AudioRecorder = () => {
                 <div className="flex flex-col items-center justify-center">
                     <button
                         className={`button mb-20 w-40 flex flex-row justify-center ${
-                            audioChunks.length
-                                ? 'enabledButton hoverEffect'
-                                : 'disabledButton'
+                            audioChunks.length ? '' : 'disabledButton'
                         }`}
                         onClick={uploadAudio}
                         disabled={!audioChunks.length}>
                         <FontAwesomeIcon
                             icon={faArrowUpFromBracket}
                             style={{ color: '#ffffff' }}
-                            className="w-6 h-6 z-10"
+                            className="w-7 h-7 z-10"
                         />
-                        <span className="ms-2 py-3 z-10">Submit</span>
+                        <div className={`${audioChunks.length ? 'hoverEffect' : ''}`}>
+                            <div></div>
+                        </div>
+                        <span className="text-lg ms-2 py-3 z-10">Submit</span>
                     </button>
                 </div>
             </div>

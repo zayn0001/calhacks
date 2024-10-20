@@ -1,12 +1,11 @@
 const WordSlider = () => {
     return (
-        /* From Uiverse.io by Uncannypotato69 */
         <div className="wrapper">
             <div className="wrapper">
                 <span className="letter letter1">P</span>
                 <span className="letter letter2">r</span>
                 <span className="letter letter3">e</span>
-                <span className="letter letter4">s</span>
+                <span className="letter letter4 ">s</span>
                 <span className="letter letter5">s</span>
                 <span className="letter letter6"> </span>
                 <span className="letter letter7">t</span>
@@ -35,6 +34,7 @@ const WordSlider = () => {
                 <span className="letter letter30">a</span>
                 <span className="letter letter31">r</span>
                 <span className="letter letter32">t</span>
+                <span className="letter letter33"> </span>
             </div>
         </div>
     );
