@@ -8,6 +8,9 @@ import {
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 export default function SignupFormDemo() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,6 +20,13 @@ export default function SignupFormDemo() {
   return (
     <div className="bg-[#0d0c22] flex justify-center bg-cover bg-center h-screen">
       <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black m-3">
+        <a className="flex items-center mb-4" href="/">
+          <FontAwesomeIcon
+            icon={faArrowLeft}
+            style={{ color: "#ffffff" }}
+            className="w-6 h-6 mr-2"
+          />
+        </a>
         <div className="bubbles"></div>
         <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
           Welcome to Recall AI
@@ -45,11 +55,11 @@ export default function SignupFormDemo() {
             <Input id="password" placeholder="••••••••" type="password" />
           </LabelInputContainer>
           <LabelInputContainer className="mb-8">
-            <Label htmlFor="twitterpassword">Your twitter password</Label>
+            <Label htmlFor="confirmpassword">Confirm your password</Label>
             <Input
-              id="twitterpassword"
+              id="confirmpassword"
               placeholder="••••••••"
-              type="twitterpassword"
+              type="password"
             />
           </LabelInputContainer>
 
