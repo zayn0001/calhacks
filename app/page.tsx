@@ -24,7 +24,7 @@ const Home = () => {
         },
     ];
     return (
-        <div className="relative h-screen flex flex-col items-center justify-center text-white bg-[#0d0c22] overflow-hidden">
+        <div className="relative h-screen flex flex-col items-center justify-center text-white bg-[#0d0c22]">
             <div className="bubbles"></div>
             {/* Responsive positioned buttons for login and signup */}
             <div className="absolute top-0 right-0 mt-4 mr-4 md:mt-6 md:mr-6 flex space-x-2 md:space-x-4">
