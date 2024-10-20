@@ -39,11 +39,11 @@ const Home = () => {
       >
         <div className="spinner1"></div>
       </div>
-
-      {/* Audio and Video buttons with tooltips */}
-      <div className="flex gap-6 mt-9 relative">
+      
+      {/* Buttons with flex layout */}
+      <div className="flex flex-wrap justify-center gap-6 mt-9 w-full max-w-md">
         {/* Audio Button */}
-        <div className="relative group">
+        <div className="relative">
           <Link href="/audio" className="poppins-regular">
             <button className="button flex items-center">
               <Image src={micImg} alt="Microphone" className="w-5 h-6 mx-4" />
@@ -60,7 +60,7 @@ const Home = () => {
               bottom: "-70%",
               left: "50%",
               transform: "translateX(-50%)",
-              whiteSpace: "nowrap", // Prevent text from wrapping to the next line
+              whiteSpace: "nowrap",
             }}
           >
             Record your day!
@@ -91,7 +91,7 @@ const Home = () => {
               bottom: "-70%",
               left: "50%",
               transform: "translateX(-50%)",
-              whiteSpace: "nowrap", // Prevent text from wrapping to the next line
+              whiteSpace: "nowrap",
             }}
           >
             Capture a moment!
@@ -122,10 +122,41 @@ const Home = () => {
               bottom: "-70%",
               left: "50%",
               transform: "translateX(-50%)",
-              whiteSpace: "nowrap", // Prevent text from wrapping to the next line
+              whiteSpace: "nowrap",
             }}
           >
             Ask a question!
+            <div className="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+
+        {/* Train Button */}
+        <div className="relative group">
+          <Link href="/train" className="poppins-regular">
+            <button className="button flex items-center">
+              <Image
+                src={videoImg}
+                alt="Train"
+                className="w-12 h-12 mr-2 object-cover"
+                style={{ objectPosition: "center" }}
+              />
+              <span className="py-3 mr-5">TRAIN</span>
+              <div className="hoverEffect">
+                <div></div>
+              </div>
+            </button>
+          </Link>
+          <div
+            role="tooltip"
+            className="absolute z-10 invisible inline-block max-w-xs px-3 py-2 text-sm font-medium text-white bg-white/30 backdrop-blur-lg rounded-lg shadow-lg opacity-0 tooltip dark:bg-gray-900/40 group-hover:visible group-hover:opacity-100"
+            style={{
+              bottom: "-70%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Replicate your voice!
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
         </div>

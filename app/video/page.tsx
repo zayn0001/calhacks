@@ -52,7 +52,7 @@ const RecordPage = () => {
         <BackgroundGradient className="w-full max-w-lg mx-auto" animate={true}>
           <div
             style={{ borderRadius: "1.75rem" }}
-            className="bg-white dark:bg-slate-900 text-black dark:text-white p-3 shadow-2xl rounded-xl border border-neutral-200 dark:border-slate-700 relative"
+            className="bg-white dark:bg-slate-900 text-black dark:text-white p-3 shadow-2xl rounded-3xl border border-neutral-200 dark:border-slate-700 relative"
           >
             {/* Placeholder for the video feed */}
             <VideoPlayer setNewDescription={addNewText} />
