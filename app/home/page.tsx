@@ -1,4 +1,4 @@
-"use client"; // Mark this file as a Client Component
+'use client'; // Mark this file as a Client Component
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -13,9 +13,9 @@ const Home = () => {
 
     const [isSpinning, setIsSpinning] = useState(false); // State to control spinner
 
-  return (
-    <div className="bg-[#0d0c22] bg-cover bg-center h-screen flex flex-col justify-center items-center text-white">
-      <div className="bubbles"></div>
+    return (
+        <div className="bg-[#0d0c22] bg-cover bg-center h-screen flex flex-col justify-center items-center text-white">
+            <div className="bubbles"></div>
 
             {/* Welcome text */}
             <div className="text-center mb-10">
@@ -67,11 +67,8 @@ const Home = () => {
                     </button>
                 </Link>
             </div>
-          </button>
-        </Link>
-      </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default Home;
