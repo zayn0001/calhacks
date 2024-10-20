@@ -83,7 +83,7 @@ export default function VideoPlayer({ setNewDescription }: VideoPlayerProps) {
 
   // Start capturing frames every 5 seconds
   useEffect(() => {
-    frameCaptureIntervalRef.current = window.setInterval(captureAndUploadFrame, 30000);
+    frameCaptureIntervalRef.current = window.setInterval(captureAndUploadFrame, 3000);
 
     return () => {
       if (frameCaptureIntervalRef.current) {

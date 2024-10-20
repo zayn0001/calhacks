@@ -5,7 +5,7 @@
   "scripts": {
     "flask-dev": "FLASK_DEBUG=1 pip3 install -r requirements.txt && python3 -m flask --app api/index run -p 5328",
     "vapi-run": "pip3 install -r fastapi-requirements.txt && python3 api/vapi.py",
-    "ngrok-run": "ngrok config add-authtoken 2ngeAOVUnO40n3gmp2wKdKth4ld_78LtJfSR34os65CxbkCJ8 && ngrok http 5001",
+    "ngrok-run": "ngrok config add-authtoken 2nhp12P3Gvzq3Jw4QhHCiU6KO58_2tCU2WTT7pLhoJANBgH1k && ngrok http 5001",
     "next-dev": "next dev",
     "dev": "concurrently 'pnpm run next-dev' 'pnpm run flask-dev' 'pnpm run vapi-run' 'pnpm run ngrok-run'",
     "build": "next build",

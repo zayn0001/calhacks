@@ -89,11 +89,13 @@ const AudioTrainer = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        window.location.href="/home"
       })
       .catch((error) => {
         console.error("Error:", error);
+        window.location.href="/home"
       });
-      window.location.href="/home"
+      
   };
 
   return (
@@ -123,11 +125,8 @@ const AudioTrainer = () => {
             model that accurately replicates your unique sound. To achieve the
             best results, we encourage you to speak naturally and clearly. Use
             varied tones, pitch, and pace as you read the provided prompts or
-            engage in spontaneous speech. As you record, take your time to
-            articulate your words and express yourself freely, just as you would
-            in a conversation. Feel free to replay your recordings to analyze
-            your performance and track your progress. Once you’re satisfied with
-            your recordings, submitting them is easy!
+            engage in spontaneous speech.  Once you’re satisfied with
+            your recordings, hit submit!  
           </p>
         </div>
       </BackgroundGradient>

@@ -83,9 +83,11 @@ const AudioRecorder = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        window.location.href="/home"
       })
       .catch((error) => {
         console.error("Error:", error);
+        window.location.href="/home"
       });
   };
 

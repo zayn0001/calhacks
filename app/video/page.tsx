@@ -67,7 +67,7 @@ const RecordPage = () => {
           ref={transcriptRef} // Attach the ref here
           className="mt-4 w-full max-w-lg overflow-auto h-40 border border-white/20 rounded-lg bg-white/10 backdrop-blur-md"
         >
-          <TextGenerateEffect words={latestText || ""} className="px-4" />
+          {latestText || ""}
         </div>
       </div>
     </div>

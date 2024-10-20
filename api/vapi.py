@@ -9,6 +9,10 @@ load_dotenv()
 app = FastAPI()
 client = AsyncGroq()
 
+@app.get("/chat/check")
+def check():
+    return {"asdsd":"asdasd"}
+
 @app.post("/chat/completions")
 async def chat_completion_stream(request: Request):
     print(request)

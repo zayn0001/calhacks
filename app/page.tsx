@@ -7,19 +7,22 @@ import logoImg from "@/public/logo.png";
 const Home = () => {
   const words = [
     {
-      text: "The",
+      text: "Where",
     },
     {
-      text: "future",
+      text: "Your",
     },
     {
-      text: "of",
+      text: "Story",
     },
     {
-      text: "Conversational",
+      text: "Speaks",
     },
     {
-      text: "Memory.",
+      text: "for",
+    },
+    {
+      text: "You.",
       className: "text-purple-500 dark:text-purple-500",
     },
   ];
