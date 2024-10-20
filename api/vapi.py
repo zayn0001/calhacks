@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from starlette.responses import StreamingResponse
 from dotenv import load_dotenv
 from groq import AsyncGroq
-
+from groqclient import get_similar_contents
 load_dotenv()
 
 app = FastAPI()
@@ -13,6 +13,12 @@ client = AsyncGroq()
 async def chat_completion_stream(request: Request):
     data = await request.json()
     content = data['messages'][2]['content']
+    similars = get_similar_contents(content)
+    print(similars)
+    context = similars["similars"][0][0]
+
+
+
     try:
         response = await client.chat.completions.create(
                 messages=[
@@ -27,7 +33,7 @@ async def chat_completion_stream(request: Request):
                                 'type': 'text',
                                 'text': f'''
                                             question: {content}
-                                            information: Andrew Garfield does, in fact, play two characters in "We Live in Time" (in theaters now), which is directed by John Crowley ("Brooklyn"). The Oscar nominee stars in the time-hopping romantic drama as Tobias, a cereal salesman who falls helplessly in love with a world-class chef named Almut (Florence Pugh). When we first meet Almut, she's told that her aggressive ovarian cancer has returned. Not wanting to spend her final months in and out of hospital rooms, she decides to forego treatment and instead train for an elite cooking competition.
+                                            information: {context}
                                         '''
                             }
                         ]

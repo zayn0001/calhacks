@@ -43,7 +43,7 @@ def speak(content):
     ws.close()
 
     # Run the conversion
-    ffmpeg.input(pcm_file_name, format="f32le").output("/tmp/sample_.wav").run()
+    ffmpeg.input(pcm_file_name, format="f32le").output("sample_.wav").run()
 
     # Return the path of the WAV file
     return "/tmp/sample_.wav"

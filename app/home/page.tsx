@@ -42,9 +42,10 @@ const Home = () => {
 
       {/* Audio and Video buttons with tooltips */}
       <div className="flex gap-6 mt-9 relative">
+        {/* Audio Button */}
         <div className="relative group">
           <Link href="/audio" className="poppins-regular">
-            <button className="button">
+            <button className="button flex items-center">
               <Image src={micImg} alt="Microphone" className="w-5 h-6 mx-4" />
               <span className="py-3 mr-4">AUDIO</span>
               <div className="hoverEffect">
@@ -67,9 +68,10 @@ const Home = () => {
           </div>
         </div>
 
+        {/* Video Button */}
         <div className="relative group">
           <Link href="/video" className="poppins-regular">
-            <button className="button">
+            <button className="button flex items-center">
               <Image
                 src={videoImg}
                 alt="Video"
@@ -93,6 +95,37 @@ const Home = () => {
             }}
           >
             Capture a moment!
+            <div className="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+
+        {/* Ask Button */}
+        <div className="relative group">
+          <Link href="/responder" className="poppins-regular">
+            <button className="button flex items-center">
+              <Image
+                src={videoImg}
+                alt="Ask"
+                className="w-12 h-12 mr-2 object-cover"
+                style={{ objectPosition: "center" }}
+              />
+              <span className="py-3 mr-5">ASK</span>
+              <div className="hoverEffect">
+                <div></div>
+              </div>
+            </button>
+          </Link>
+          <div
+            role="tooltip"
+            className="absolute z-10 invisible inline-block max-w-xs px-3 py-2 text-sm font-medium text-white bg-white/30 backdrop-blur-lg rounded-lg shadow-lg opacity-0 tooltip dark:bg-gray-900/40 group-hover:visible group-hover:opacity-100"
+            style={{
+              bottom: "-70%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              whiteSpace: "nowrap", // Prevent text from wrapping to the next line
+            }}
+          >
+            Ask a question!
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
         </div>
