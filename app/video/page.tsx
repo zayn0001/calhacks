@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import VideoPlayer from "@/components/ui/VideoPlayer";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const RecordPage = () => {
   // State to keep track of text boxes (string array)
@@ -31,7 +34,17 @@ const RecordPage = () => {
   return (
     <div className="h-screen flex flex-col bg-[#0d0c22] text-white relative overflow-hidden">
       {/* Floating bubble effect */}
-      <div className="bubbles absolute inset-0 pointer-events-none z-0"></div>
+      <div className="bubbles"></div>
+      <Link
+        href="/home"
+        className="absolute top-5 left-5 m-4 flex items-center cursor-pointer"
+      >
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          style={{ color: "#ffffff" }}
+          className="w-6 h-6 mr-2"
+        />
+      </Link>
 
       {/* Main content */}
       <div className="flex-grow flex flex-col items-center justify-center z-10">
@@ -46,7 +59,9 @@ const RecordPage = () => {
           </div>
         </BackgroundGradient>
         {/* Generated text below the video box */}
-        <h1 className="text-2xl font-bold mt-8 text-center">Recent Transcripts</h1>
+        <h1 className="text-2xl font-bold mt-8 text-center">
+          Recent Transcripts
+        </h1>
         <div className="mx-4">
           {texts.map((text, index) => (
             <div
