@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Page = () => {
   const placeholders = [
@@ -87,22 +90,29 @@ const Page = () => {
   return (
     <div className="flex flex-col bg-[#0d0c22] text-white h-screen p-4 rounded-lg shadow-lg overflow-hidden">
       <div className="bubbles"></div>
-      <div className="flex-1 overflow-auto mb-4">
+      <Link href="/home" className="mb-10">
+        <div className="absolute top-5 left-5 m-4">
+          <a className="flex items-center">
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              style={{ color: "#ffffff" }}
+              className="w-6 h-6 mr-2"
+            />
+          </a>
+        </div>
+      </Link>
+      <div className="flex-1 mb-4">
         {/* Render messages */}
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`mb-2 p-2 rounded-lg transition-transform transform shadow-md ${
+            className={`w-full mb-2 p-2 rounded-lg transition-transform transform shadow-md ${
               msg.sender === "user"
-                ? "bg-gray-500 self-start max-w-xs"
-                : "bg-blue-500 self-end max-w-xs ml-auto"
+                ? "bg-pink-400/40 backdrop-blur-md self-start max-w-fit rounded-lg shadow-lg border border-white/30"
+                : "bg-blue-400/40 backdrop-blur-md self-end max-w-fit ml-auto rounded-lg shadow-lg border border-white/30"
             }`}
           >
             <p className="text-lg text-white">{msg.text}</p>
-            <p className="text-sm text-gray-200">
-              {msg.sender === "user" ? "Submitted" : "Received"} at{" "}
-              {new Date().toLocaleTimeString()}
-            </p>
           </div>
         ))}
       </div>
@@ -115,7 +125,6 @@ const Page = () => {
           onSubmit={handleInputSubmit}
         />
       </div>
-      
 
       {/* Prefill Questions Area */}
       {showCards && (
