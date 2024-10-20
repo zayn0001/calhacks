@@ -62,28 +62,20 @@ export default function VideoPlayer({ setNewDescription }: VideoPlayerProps) {
       context.scale(-1, 1); // Flip the canvas horizontally
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      const imageData = canvas.toDataURL("image/jpeg");
-
-      try {
+      canvas.toBlob(async function(blob) {
+        // Now you can handle the Blob object (for example, to upload it)
+        const formData = new FormData();
+        formData.append('file', blob!, 'image.jpeg');
         const response = await fetch("/api/upload", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ file: imageData }),
+          body: formData,
         });
-
-        if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
-        }
 
         console.log("Frame uploaded successfully.");
         const result = await response.json()
+        console.log(result)
         setNewDescription(result["description"])
-      } catch (error) {
-        console.error("Error uploading frame:", error);
-        setError("Error uploading frame.");
-      }
+    }, 'image/jpeg', 0.9);
     } else {
       setError("Could not get canvas context.");
     }
@@ -91,7 +83,7 @@ export default function VideoPlayer({ setNewDescription }: VideoPlayerProps) {
 
   // Start capturing frames every 5 seconds
   useEffect(() => {
-    frameCaptureIntervalRef.current = window.setInterval(captureAndUploadFrame, 5000);
+    frameCaptureIntervalRef.current = window.setInterval(captureAndUploadFrame, 10000);
 
     return () => {
       if (frameCaptureIntervalRef.current) {

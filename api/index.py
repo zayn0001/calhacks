@@ -59,8 +59,7 @@ async def upload_file():
 
         return jsonify({
             'timestamp': result['timestamp'],
-            'commentary': result['text'],
-            'embedding': result['embedding']
+            'description': result['text'],
         }), 200
 
     return jsonify({'error': 'Allowed file types are png, jpg, jpeg, gif'}), 400
@@ -147,7 +146,7 @@ def upload_audio():
                                 (timestamp, response, json.dumps(embedding.tolist())))
                 conn.commit()
 
-                
+
             return {"transcription":response}
 
     else:
