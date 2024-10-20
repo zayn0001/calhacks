@@ -1,10 +1,23 @@
+from datetime import datetime
+import json
+import os
+import tempfile
 from flask import Flask, request, jsonify, send_file
 from werkzeug.utils import secure_filename
 from PIL import Image
 import io
 from imagetodatabase import generate_commentary  # Assuming you have the generate_commentary function
+from groqclient import generate_embedding, get_similar_contents, get_response, initialize_database
+from deepgram import (
+    DeepgramClient,
+    PrerecordedOptions,
+    FileSource,
+)
+from dotenv import load_dotenv
+load_dotenv()
+
 from groqclient import get_similar_contents, get_response
-from api.cartesia_client import speak
+from cartesia_client import speak
 
 app = Flask(__name__)
 
@@ -47,8 +60,7 @@ async def upload_file():
 
         return jsonify({
             'timestamp': result['timestamp'],
-            'commentary': result['text'],
-            'embedding': result['embedding']
+            'description': result['text'],
         }), 200
 
     return jsonify({'error': 'Allowed file types are png, jpg, jpeg, gif'}), 400
@@ -75,9 +87,8 @@ async def get_context():
     return send_file(audio_file, mimetype='audio/wav', as_attachment=True, download_name='response.wav')
     
 
-
 @app.route('/api/getanswerintext', methods=['POST'])
-async def get_context():
+async def answer_in_text():
     data = request.get_json()
 
     # Extract the 'question' argument from the JSON body
@@ -92,7 +103,52 @@ async def get_context():
 
     ans = get_response(question, contents["similars"])
     return ans
-    
-    
 
 
+deepgram = DeepgramClient(os.getenv("DEEPGRAM_API_KEY"))
+@app.route('/api/uploadaudio', methods=['POST'])
+def upload_audio():
+    uploaded_file = request.files['file']
+    if uploaded_file.filename != '':
+        # Create a temporary file to store the audio data
+        with tempfile.NamedTemporaryFile(delete=True) as temp_file:
+            # Save the uploaded file to the temporary file
+            uploaded_file.save(temp_file.name)
+
+            # Read the temporary file data into memory
+            with open(temp_file.name, "rb") as file:
+                buffer_data = file.read()
+
+            # Prepare the Deepgram payload
+            payload: FileSource = {
+                "buffer": buffer_data,
+            }
+
+            # Set transcription options
+            options = PrerecordedOptions(
+                model="nova-2",  # Using the 'nova-2' model
+                smart_format=True,  # Enable smart formatting
+            )
+
+            # Make the request to Deepgram API for transcription
+            response = deepgram.listen.rest.v("1").transcribe_file(payload, options)
+            response = response['results']['channels'][0]['alternatives'][0]['transcript']
+            # Return the transcription response as JSON
+
+
+            embedding = generate_embedding(response)
+            print("Generated embedding:", "Embedding generated successfully")
+            timestamp = datetime.now()
+            print(timestamp, response)
+            conn, cursor = initialize_database()
+            if cursor:
+                cursor.execute('''INSERT INTO descriptions_table (timestamp, description, embedding) 
+                                    VALUES (%s, %s, %s)''',
+                                (timestamp, response, json.dumps(embedding.tolist())))
+                conn.commit()
+
+
+            return {"transcription":response}
+
+    else:
+        return jsonify({'error': 'No file uploaded'}), 400
