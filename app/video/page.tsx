@@ -1,35 +1,33 @@
 "use client"; // Mark this file as a Client Component
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
 import VideoPlayer from "@/components/ui/VideoPlayer";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
 const RecordPage = () => {
-  // State to keep track of text boxes (string array)
-  const [texts, setTexts] = useState<string[]>([]);
+  // State to keep track of the latest text
+  const [latestText, setLatestText] = useState<string>(
+    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus nostrum dolore obcaecati laboriosam nisi animi delectus. Nihil, quibusdam in quia odio est possimus magni reiciendis pariatur reprehenderit excepturi maxime! Sit. Odit hic et nobis maxime consequuntur error labore. Molestiae nihil, commodi aliquid harum officia fuga consequuntur eius corrupti recusandae totam fugit possimus! Rem veniam aspernatur reiciendis ducimus et quaerat nam? Iste fugiat velit saepe vero, dolorem incidunt quibusdam hic esse placeat, fuga enim cupiditate laudantium necessitatibus porro nisi consequatur dolorum molestiae corporis totam, doloribus distinctio odit natus voluptas! Ipsam, omnis?"
+  );
 
-  // Counter to track the next index to replace after 3 texts
-  const [replaceIndex, setReplaceIndex] = useState(0);
+  // Create a ref for the transcript box
+  const transcriptRef = useRef<HTMLDivElement | null>(null);
 
-  // Function to add new text and limit it to 3 items, then replace items in a circular manner
+  // Function to add new text
   const addNewText = (newText: string) => {
-    setTexts((prevTexts) => {
-      if (prevTexts.length < 3) {
-        // If fewer than 3 texts, just add new text normally
-        return [...prevTexts, newText];
-      } else {
-        // Replace text in a circular manner after 3 items
-        const updatedTexts = [...prevTexts];
-        updatedTexts[replaceIndex] = newText;
-        // Update the replaceIndex to cycle through 0, 1, 2
-        setReplaceIndex((prevIndex) => (prevIndex + 1) % 3);
-        return updatedTexts;
-      }
-    });
+    setLatestText(newText); // Update latest text with new input
   };
+
+  // Effect to auto-scroll to the bottom of the transcript box when latestText changes
+  useEffect(() => {
+    if (transcriptRef.current) {
+      transcriptRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [latestText]);
 
   return (
     <div className="h-screen flex flex-col bg-[#0d0c22] text-white relative overflow-hidden">
@@ -58,22 +56,17 @@ const RecordPage = () => {
             <VideoPlayer setNewDescription={addNewText} />
           </div>
         </BackgroundGradient>
-        {/* Generated text below the video box */}
-        <h1 className="text-2xl font-bold mt-8 text-center">
-          Recent Transcripts
-        </h1>
-        <div className="mx-4">
-          {texts.map((text, index) => (
-            <div
-              key={index}
-              className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-4 mt-2 w-full max-w-3xl text-center shadow-lg"
-            >
-              {text}
-            </div>
-          ))}
-        </div>
 
-        {/* Button to add new text */}
+        {/* Transcript box with scroll */}
+        <h1 className="text-2xl font-bold mt-5 text-center">
+          Recent Transcript
+        </h1>
+        <div
+          ref={transcriptRef} // Attach the ref here
+          className="mt-4 w-full max-w-lg overflow-auto h-40 border border-white/20 rounded-lg bg-white/10 backdrop-blur-md"
+        >
+          <TextGenerateEffect words={latestText} className="px-4" />
+        </div>
       </div>
     </div>
   );
