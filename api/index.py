@@ -4,7 +4,7 @@ from PIL import Image
 import io
 from imagetodatabase import generate_commentary  # Assuming you have the generate_commentary function
 from groqclient import get_similar_contents, get_response
-from vapi_client import speak
+from api.cartesia_client import speak
 
 app = Flask(__name__)
 
