@@ -92,7 +92,7 @@ const AudioVisualizer = ({ audioStream }) => {
         }
     }, [audioStream]);
 
-    return <canvas ref={canvasRef} className="w-full h-full md:w-1/2 lg:w-1/3"></canvas>;
+    return <canvas ref={canvasRef} className="w-full h-full"></canvas>;
 };
 
 export default AudioVisualizer;
