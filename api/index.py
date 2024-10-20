@@ -8,7 +8,6 @@ from PIL import Image
 import io
 from imagetodatabase import generate_commentary  # Assuming you have the generate_commentary function
 from groqclient import generate_embedding, get_similar_contents, get_response, initialize_database
-from vapi_client import speak
 from deepgram import (
     DeepgramClient,
     PrerecordedOptions,
@@ -17,6 +16,8 @@ from deepgram import (
 from dotenv import load_dotenv
 load_dotenv()
 
+from groqclient import get_similar_contents, get_response
+from cartesia_client import speak
 
 app = Flask(__name__)
 
