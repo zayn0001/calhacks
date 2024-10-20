@@ -11,7 +11,7 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 const RecordPage = () => {
   // State to keep track of the latest text
   const [latestText, setLatestText] = useState<string>(
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus nostrum dolore obcaecati laboriosam nisi animi delectus. Nihil, quibusdam in quia odio est possimus magni reiciendis pariatur reprehenderit excepturi maxime! Sit. Odit hic et nobis maxime consequuntur error labore. Molestiae nihil, commodi aliquid harum officia fuga consequuntur eius corrupti recusandae totam fugit possimus! Rem veniam aspernatur reiciendis ducimus et quaerat nam? Iste fugiat velit saepe vero, dolorem incidunt quibusdam hic esse placeat, fuga enim cupiditate laudantium necessitatibus porro nisi consequatur dolorum molestiae corporis totam, doloribus distinctio odit natus voluptas! Ipsam, omnis?"
+    
   );
 
   // Create a ref for the transcript box
@@ -65,7 +65,7 @@ const RecordPage = () => {
           ref={transcriptRef} // Attach the ref here
           className="mt-4 w-full max-w-lg overflow-auto h-40 border border-white/20 rounded-lg bg-white/10 backdrop-blur-md"
         >
-          <TextGenerateEffect words={latestText} className="px-4" />
+          <TextGenerateEffect words={latestText || ""} className="px-4" />
         </div>
       </div>
     </div>
