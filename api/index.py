@@ -225,4 +225,4 @@ def create_voice():
     print(response.json())
     print(response.text)
 
-    return 'Voice ID successfully changed !'
+    return {"success":'Voice ID successfully changed !', "id":id, "vapi":response.text}

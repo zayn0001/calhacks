@@ -80,8 +80,9 @@ const AudioTrainer = () => {
     const blob = new Blob(audioChunks, { type: "audio/wav" });
     const formData = new FormData();
     formData.append("file", blob, "recorded-audio.wav");
+    formData.append("name", "newvoice")
 
-    fetch("/api/uploadaudio", {
+    fetch("/api/create_voice", {
       method: "POST",
       body: formData,
     })
@@ -92,6 +93,7 @@ const AudioTrainer = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
+      window.location.href="/home"
   };
 
   return (
