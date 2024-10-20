@@ -32,10 +32,10 @@ const RecordPage = () => {
   return (
     <div className="h-screen flex flex-col bg-[#0d0c22] text-white relative overflow-hidden">
       {/* Floating bubble effect */}
-      <div className="bubbles"></div>
       <Link
         href="/home"
         className="absolute top-5 left-5 m-4 flex items-center cursor-pointer"
+        style={{zIndex:100}}
       >
         <FontAwesomeIcon
           icon={faArrowLeft}
@@ -43,6 +43,8 @@ const RecordPage = () => {
           className="w-6 h-6 mr-2"
         />
       </Link>
+      <div className="bubbles"></div>
+      
 
       {/* Main content */}
       <div className="flex-grow flex flex-col items-center justify-center z-10">
