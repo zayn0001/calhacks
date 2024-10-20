@@ -33,19 +33,6 @@ const RecordPage = () => {
       {/* Floating bubble effect */}
       <div className="bubbles absolute inset-0 pointer-events-none z-0"></div>
 
-      <div className="flex flex-col items-center">
-        <div className="flex space-x-4">
-          <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full">
-            <span>Login</span>
-            <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px" />
-          </button>
-          <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full">
-            <span>Sign Up</span>
-            <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px" />
-          </button>
-        </div>
-      </div>
-
       {/* Main content */}
       <div className="flex-grow flex flex-col items-center justify-center z-10">
         {/* Video communication box with gradient background */}

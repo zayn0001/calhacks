@@ -30,11 +30,11 @@ const Home = () => {
             <div className="absolute top-0 right-0 mt-4 mr-4 md:mt-6 md:mr-6 flex space-x-2 md:space-x-4">
                 <button className="border text-xs md:text-sm font-medium border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-2 md:px-4 py-1 md:py-2 rounded-full">
                     <span>Login</span>
-                    <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px" />
+                    <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent to-transparent h-px" />
                 </button>
                 <button className="border text-xs md:text-sm font-medium border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-2 md:px-4 py-1 md:py-2 rounded-full">
                     <span>Sign Up</span>
-                    <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px" />
+                    <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent to-transparent h-px" />
                 </button>
             </div>
             {/* Centered content */}

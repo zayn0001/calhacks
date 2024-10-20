@@ -12,6 +12,7 @@ const Page = () => {
   ];
 
   const [submittedMessages, setSubmittedMessages] = useState<string[]>([]); // State to hold submitted messages
+  const [showCards, setShowCards] = useState(true); // State to control card visibility
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value); // Handle input change
@@ -25,6 +26,7 @@ const Page = () => {
       setSubmittedMessages((prev) => [...prev, inputValue]); // Add the submitted message to the list
       console.log("Input submitted!", inputValue); // Handle form submission
       e.currentTarget.reset(); // Clear the input after submission
+      setShowCards(false); // Hide the cards when input is submitted
     }
   };
 
@@ -36,8 +38,7 @@ const Page = () => {
     },
     {
       title: "Medication Adherence",
-      description:
-        "Did the patient take their medication every day for the past week?",
+      description: "Did the patient take their medication every day for the past week?",
     },
     {
       title: "Social Interaction",
@@ -56,6 +57,7 @@ const Page = () => {
   // Function to handle card click and update submitted messages
   const handleCardClick = (description: string) => {
     setSubmittedMessages((prev) => [...prev, description]); // Add the clicked question to the list
+    setShowCards(false); // Hide the cards after one is clicked
     console.log("Card clicked!", description); // Handle card click
   };
 
@@ -71,9 +73,11 @@ const Page = () => {
       </div>
 
       {/* Prefill Questions Area */}
-      <div className="mb-4">
-        <HoverEffect items={questions} onCardClick={handleCardClick} />
-      </div>
+      {showCards && (
+        <div className="mb-4">
+          <HoverEffect items={questions} onCardClick={handleCardClick} />
+        </div>
+      )}
 
       {/* Input Area */}
       <div className="p-4">
